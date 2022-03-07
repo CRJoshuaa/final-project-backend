@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+//get crypto news
 const getCryptoNews = async (category, count) => {
   var axios = require("axios").default;
 
@@ -15,8 +16,8 @@ const getCryptoNews = async (category, count) => {
     },
     headers: {
       "x-bingapis-sdk": "true",
-      "x-rapidapi-host": process.env.RAPIDAPI_HOST,
-      "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+      "x-rapidapi-host": process.env.CN_RAPIDAPI_HOST,
+      "x-rapidapi-key": process.env.CN_RAPIDAPI_KEY,
     },
   };
 

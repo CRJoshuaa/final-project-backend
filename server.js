@@ -1,5 +1,8 @@
-const crypto = require("./services/cryptoNews.js");
+const cryptoNews = require("./services/cryptoNews");
+const cryptoInfo = require("./services/cryptoInfo");
 const { instrument } = require("@socket.io/admin-ui");
+const res = require("express/lib/response");
+const { createModifiersFromModifierFlags } = require("typescript");
 
 const PORT = process.env.PORT || 3001;
 
@@ -9,32 +12,19 @@ const io = require("socket.io")(PORT, {
   },
 });
 
-const userIo = io.of("/user");
-userIo.on("connection", (socket) => {
-  console.log("connected to user namespace with username " + socket.username);
-});
-
-userIo.use((socket, next) => {
-  if (socket.handshake.auth.token) {
-    socket.username = getUsernameFromToken(socket.handshake.auth.token);
-    next();
-  } else {
-    next(new Error("Please send token"));
-  }
-});
-
-const getUsernameFromToken = (token) => {
-  return token;
-};
-
 io.on("connection", (socket) => {
-  console.log(socket.id);
-
+  // request for crypto news
   socket.on("request-crypto-news", async (category, count) => {
     console.log("crypto-news requested");
-    const response = await crypto.getCryptoNews(category, count);
-
+    const response = await cryptoNews.getCryptoNews(category, count);
     socket.emit("response-crypto-news", response);
+  });
+
+  //request for crypto information
+  socket.on("request-crypto", async (count) => {
+    console.log("crypto requested");
+    const response = await cryptoInfo.getCryptos(count);
+    socket.emit("response-crypto", response);
   });
 });
 
