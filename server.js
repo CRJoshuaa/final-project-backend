@@ -1,8 +1,6 @@
 const cryptoNews = require("./services/cryptoNews");
 const cryptoInfo = require("./services/cryptoInfo");
 const { instrument } = require("@socket.io/admin-ui");
-const res = require("express/lib/response");
-const { createModifiersFromModifierFlags } = require("typescript");
 
 const PORT = process.env.PORT || 3001;
 
