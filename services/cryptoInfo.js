@@ -57,7 +57,7 @@ const getCryptos = async (count) => {
       console.error(error);
     });
 
-  return response.data.coins;
+  return response;
 };
 
 //get cryptocurrency details
