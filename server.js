@@ -6,7 +6,11 @@ const PORT = process.env.PORT || 3001;
 
 const io = require("socket.io")(PORT, {
   cors: {
-    origin: ["https://admin.socket.io/", "http://localhost:3000"],
+    origin: [
+      "https://admin.socket.io/",
+      "http://localhost:3000",
+      "https://besquare-final-project.web.app",
+    ],
   },
 });
 
