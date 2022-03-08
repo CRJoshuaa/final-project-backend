@@ -24,6 +24,20 @@ io.on("connection", (socket) => {
     const response = await cryptoInfo.getCryptos(count);
     socket.emit("response-crypto", response);
   });
+
+  //request for crypto history
+  socket.on("request-crypto-history", async (coinId, timePeriod) => {
+    console.log("crypto history requested");
+    const response = await cryptoInfo.getCryptoHistory(coinId, timePeriod);
+    socket.emit("response-crypto-history", response);
+  });
+
+  //request for crypto details
+  socket.on("request-crypto-details", async (coinId) => {
+    console.log("crypto details requested");
+    const response = await cryptoInfo.getCryptoDetails(coinId);
+    socket.emit("response-crypto-details", response);
+  });
 });
 
 instrument(io, { auth: false });

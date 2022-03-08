@@ -60,4 +60,43 @@ const getCryptos = async (count) => {
   return response.data.coins;
 };
 
-module.exports = { getCryptos };
+//get cryptocurrency details
+const getCryptoDetails = async (coinId) => {
+  var options = {
+    method: "GET",
+    url: `https://coinranking1.p.rapidapi.com/coin/${coinId}`,
+    headers: cryptoApiHeaders,
+  };
+
+  const response = await axios
+    .request(options)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+
+  return response;
+};
+
+const getCryptoHistory = async (coinId, timePeriod) => {
+  var options = {
+    method: "GET",
+    url: `https://coinranking1.p.rapidapi.com/coin/${coinId}/history`,
+    params: { timePeriod: timePeriod },
+    headers: cryptoApiHeaders,
+  };
+  const response = await axios
+    .request(options)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+
+  return response;
+};
+
+module.exports = { getCryptos, getCryptoDetails, getCryptoHistory };
